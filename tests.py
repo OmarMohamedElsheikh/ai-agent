@@ -1,15 +1,8 @@
-from functions.get_files_content import get_file_content
+from functions.run_python_file import run_python_file
 
 
-info = get_file_content("calculator","main.py")
-print("Result for current directory:")
-print(info)
-pkg = get_file_content("calculator","pkg/calculator.py")
-print("Result for 'pkg' directory:")
-print(pkg)
-ll = get_file_content("calculator","/bin/cat")
-print("Result for '/bin' directory:")
-print(ll)
-gi = get_file_content("calculator","pkg/does_not_exist.py")
-print("Result for '../' directory:")
-print(gi)
+print(run_python_file("calculator", "main.py")) 
+print(run_python_file("calculator", "main.py", ["3 + 5"])) 
+print(run_python_file("calculator", "tests.py"))
+print(run_python_file("calculator", "../main.py")) 
+print(run_python_file("calculator", "nonexistent.py"))
