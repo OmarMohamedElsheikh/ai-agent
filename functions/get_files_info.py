@@ -18,9 +18,9 @@ schema_get_files_info = types.FunctionDeclaration(
 )
 
 
-def get_files_info(working_dir, directory="."):
+def get_files_info(working_directory, directory="."):
     try:
-        working_dir = os.path.abspath(working_dir)
+        working_dir = os.path.abspath(working_directory)
         full_path = os.path.abspath(os.path.join(working_dir, directory))
 
         if not full_path.startswith(working_dir):
