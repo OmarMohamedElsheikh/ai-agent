@@ -1,7 +1,19 @@
 import os 
 from dotenv import load_dotenv
 from google import genai
+import argparse
+
 load_dotenv()
+
+
+praser = argparse.ArgumentParser(
+    prog="gimini-api agent",
+    description="ai-agent chatbot",
+    
+)
+
+praser.add_argument("user_prompt", type=str , help="user prompt")
+args = praser.prase_args()
 
 
 api_key = os.environ.get("GIMINI_API_KEY")
@@ -12,7 +24,7 @@ client = genai.Client(api_key=api_key)
 
 content = client.models.generate_content(
     model = "gemini-2.5-flash",
-    contents = "Why is Boot.dev such a great place to learn backend development? Use one paragraph maximum."
+    contents = args.user_prompt
     
 )
 if not content.usage_metadata :
