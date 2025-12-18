@@ -18,7 +18,7 @@ praser.add_argument("user_prompt", type=str , help="user prompt")
 args = praser.parse_args()
 
 
-messages = [genai.types.content(role="user",parts=[types.Part(text=args.user_prompt)]]
+messages = [genai.types.Content(role="user",parts=[types.Part(text=args.user_prompt)])]
 
 api_key = os.environ.get("GIMINI_API_KEY")
 if not api_key :
