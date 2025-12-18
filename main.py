@@ -13,7 +13,7 @@ praser = argparse.ArgumentParser(
 )
 
 praser.add_argument("user_prompt", type=str , help="user prompt")
-args = praser.prase_args()
+args = praser.parse_args()
 
 
 api_key = os.environ.get("GIMINI_API_KEY")
