@@ -31,52 +31,70 @@ def main():
         raise RuntimeError("api key not found or not initialized!")
 
     client = genai.Client(api_key=api_key)
-
-    content = client.models.generate_content(
-        model = "gemini-2.5-flash",
-        contents = messages,
-        config=types.GenerateContentConfig(
-        tools=[available_functions],
-        system_instruction=system_prompt),
-    )
-
-    function_calls = content.function_calls
-
-
-
-    if not content.usage_metadata :
-        raise RuntimeError("faild request!")
-
-    if args.verbose:
-        print("User prompt: " , args.user_prompt )
-        print("Prompt tokens:", content.usage_metadata.prompt_token_count)
-        print("Response tokens:", content.usage_metadata.candidates_token_count)
-
-
-    if function_calls :
-        functions_results = []
+    for _ in range(20):
+        content = client.models.generate_content(
+            model = "gemini-2.5-flash",
+            contents = messages,
+            config=types.GenerateContentConfig(
+            tools=[available_functions],
+            system_instruction=system_prompt),
+        )
         
-        for function_call in function_calls:
+        
+        if content.candidates:
+            for cand in content.candidates :
+                if cand.content:
+                    messages.append(cand.content)
 
-            function_result = call_function(function_call,verbose)
+        function_calls = content.function_calls
 
-            if (
-                not function_result.parts
-                or not function_result.parts[0].function_response
-                ):
+        
 
-                raise Exception("empty function call result")
+        if not content.usage_metadata :
+            raise RuntimeError("faild request!")
+
+        if args.verbose:
+            print("User prompt: " , args.user_prompt )
+            print("Prompt tokens:", content.usage_metadata.prompt_token_count)
+            print("Response tokens:", content.usage_metadata.candidates_token_count)
+
+        functions_results = []
+
+        if function_calls :
+            
+            for function_call in function_calls:
+
+                function_result = call_function(function_call,verbose)
+
+                if (
+                    not function_result.parts
+                    or not function_result.parts[0].function_response
+                    ):
+
+                    raise Exception("empty function call result")
 
 
-            if not function_result.parts[0].function_response.response:
-                raise Exception("function has not response")
+                if not function_result.parts[0].function_response.response:
+                    raise Exception("function has not response")
 
-            functions_results.append(function_result.parts[0])
+                functions_results.append(function_result.parts[0])
 
-            if verbose :
-                print(f"-> {function_result.parts[0].function_response.response}")
+                if verbose :
+                    print(f"-> {function_result.parts[0].function_response.response}")
+        else :
+            print("Final response:\n" + content.text)
+            return 
 
-    print(content.text)
+            
+        if functions_results:
+            messages.append(
+                types.Content(
+                    role="user",
+                    parts=functions_results
+            )
+        )
+    print("Stopped: reached maximum iterations (20).")
+    return 1
 
 if __name__ == "__main__":
     main()
