@@ -82,7 +82,8 @@ def main():
                 if verbose :
                     print(f"-> {function_result.parts[0].function_response.response}")
         else :
-            print("Final response:\n" + content.text)
+            print("Final response:\n")
+            print(content.text)
             return 
 
             
