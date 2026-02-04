@@ -82,24 +82,46 @@ To set up the project, follow these steps:
     ```
 
 ## Usage
+### Run the Chatbot
 
-Run the `main.py` script with your desired user prompt:
+Start the chatbot with:
+```bash
+python main.py
+```
+
+You’ll see a prompt like:
+
+```
+You:
+```
+
+Type your message and press Enter to chat with the agent.
+
+Enable verbose mode to see token usage and function call outputs:
 
 ```bash
-python main.py "Your user prompt here"
+python main.py --verbose
 ```
+
+**Verbose mode prints:**
+- Prompt token count
+- Response token count
+- Function call responses (if any)
+
+The chatbot maintains conversation history across turns. The model may call predefined functions automatically when needed. Each response is generated with a maximum of 20 internal iterations to avoid infinite loops. After each exchange, you’ll be asked whether you want to continue:
+
+```
+Do you want to continue (y/n)?
+```
+
+Any input other than y exits the program. When you choose to stop the conversation, the program exits cleanly:
+
+```
+exiting chat.
+```
+
 
 ### Arguments
 
-*   `user_prompt` (required): The prompt you want to send to the AI agent.
 *   `--verbose` (optional): Enable verbose output to display prompt tokens, response tokens, and function call results.
 
-### Example
-
-```bash
-python main.py "What is the capital of France?"
-```
-
-```bash
-python main.py --verbose "Calculate 10 plus 5"
-```
