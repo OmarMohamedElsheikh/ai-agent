@@ -69,7 +69,7 @@ To set up the project, follow these steps:
 3.  **Install dependencies:**
 
     ```bash
-    pip install -r requirements.txt  # Assuming you have a requirements.txt, or install individual packages like google-generativeai, python-dotenv
+    pip install google-generativeai python-dotenv
     ```
 
 4.  **Set up your Gemini API Key:**
