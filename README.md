@@ -1,6 +1,6 @@
-# Gemini AI Chatbot Agent
+## A terminal-based AI chatbot built on the Gemini API that supports automatic function calling, verbose token inspection, and extensible tool execution.
 
-This project is an AI chatbot agent built with the Gemini API. It can interact with users, understand their prompts, and execute functions based on the conversation.
+Designed as a learning-focused agent framework, not just a chat interface
 
 ## Features
 
