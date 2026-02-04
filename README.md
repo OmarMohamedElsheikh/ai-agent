@@ -125,3 +125,34 @@ exiting chat.
 
 *   `--verbose` (optional): Enable verbose output to display prompt tokens, response tokens, and function call results.
 
+## Why This Project Exists
+
+This project was built to explore:
+- Gemini’s function-calling mechanism in practice
+- Tool execution loops in conversational agents
+- Debuggable agent behavior via token-level verbosity
+
+It is intentionally simple, terminal-based, and extensible.
+
+
+## Example Interaction
+
+User:
+> calculate 12 * 8
+
+Agent:
+> The result is 96.
+
+[Function called: calculator.multiply]
+
+
+## Limitations
+
+- Single-user
+- No persistent memory beyond runtime
+- Limited built-in tools
+
+## Possible Extensions
+
+- Persistent memory store
+- More complex tool schemas
