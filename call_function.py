@@ -2,7 +2,7 @@ from functions.get_files_info import schema_get_files_info , get_files_info
 from functions.run_python_file import schema_run_python_file, run_python_file
 from functions.write_file import schema_write_file , write_file
 from functions.get_file_content import get_file_content, schema_get_file_content
-
+from config import working_directory
 
 from google.genai import types
 
@@ -40,7 +40,7 @@ def call_function(function_call , verbose=False):
             ],
         )
     function_args = dict(function_call.args)
-    working_directory = "./calculator"
+
     function_args["working_directory"] = working_directory
 
     function_result = functions[function_name](**function_args)
